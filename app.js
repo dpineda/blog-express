@@ -26,7 +26,7 @@ try {
   // default metadata: hostname + os type (windows / mac / linux)
   const platform = os.type() === "Darwin" ? "MacOs" : os.type()
   const defaultName = os.hostname() + "---" + platform
-  fs.writeFileSync("./var/nodes.json", JSON.stringify({
+  fs.writeFileSync("nodes.json", JSON.stringify({
     "nodes" : [{ "ip" : ip + ":" + port, "metadata" : defaultName, "creationDate": currentDate }]
   }))
 
@@ -41,6 +41,6 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
   console.log(`Example app listening on port ${port} ip: ${ip}`)
 })
