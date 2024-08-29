@@ -1,12 +1,12 @@
 const express = require('express')
 const app = express()
 const os = require('os')
-const fs = require('fs')
 
 const interfaces = os.networkInterfaces();
 let ip;
 const port = 3000;
 
+// Expose local network ips based on <https://github.com/ProjectsByJackHe/airshare>
 const getNetworkAddress = () => {
 	for (const name of Object.keys(interfaces)) {
 		for (const interface of interfaces[name]) {
@@ -19,28 +19,19 @@ const getNetworkAddress = () => {
 };
 
 try {
-  // initialize node.json as current node since we don't know the state of all other hosts on the network yet. 
-  ip = String(getNetworkAddress()); 
-  const currentDate = new Date()
-
-  // default metadata: hostname + os type (windows / mac / linux)
-  const platform = os.type() === "Darwin" ? "MacOs" : os.type()
-  const defaultName = os.hostname() + "---" + platform
-  fs.writeFileSync("nodes.json", JSON.stringify({
-    "nodes" : [{ "ip" : ip + ":" + port, "metadata" : defaultName, "creationDate": currentDate }]
-  }))
-
+  // Get Internal IP
+  ip = String(getNetworkAddress());
 } catch (err) {
   console.log(err) 
-  exit(1); 
+  process.exit(1); 
 }
 
-
-
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  return res.send('Hello World!')
 })
 
+app.use(express.static('public'));
+
 app.listen(port, '0.0.0.0', () => {
-  console.log(`Example app listening on port ${port} ip: ${ip}`)
+  console.log(`Example app listening on ${ip}:${port}`)
 })
