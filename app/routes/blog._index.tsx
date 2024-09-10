@@ -1,4 +1,13 @@
-import type { MetaFunction } from "@remix-run/node";
+import { json, type LoaderFunctionArgs, type MetaFunction } from "@remix-run/node";
+import sql from "../db.server";
+
+export const loader = async ({ params,}: LoaderFunctionArgs) => {
+  console.log("params", params)
+  //invariant(params.contactId, "Missing contactId param");
+  const posts = await sql`select * from posts`;
+  console.log(posts)
+  return json(posts);
+};
 
 export const meta: MetaFunction = () => {
   return [
