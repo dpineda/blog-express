@@ -1,21 +1,40 @@
+# Welcome to Remix!
 
-# Android Phone as a Webserver
+- 📖 [Remix docs](https://remix.run/docs)
 
-** Termux
+## Development
 
- Install termux app terminal from the page <https://github.com/termux/termux-app/releases>
+Run the dev server:
 
- update packages:
-
-``` console
- 
-> pkg updates
-> pkg upgrade
-> pkg install nodejs-lts
-> pkg install git
-
+```shellscript
+npm run dev
 ```
 
-# blog-express use case
+## Deployment
 
-# Project based on: (I turned my Phone into a Node.js Web Server!)<https://www.youtube.com/watch?v=_zrTZphAaAk>
+First, build your app for production:
+
+```sh
+npm run build
+```
+
+Then run the app in production mode:
+
+```sh
+npm start
+```
+
+Now you'll need to pick a host to deploy it to.
+
+### DIY
+
+If you're familiar with deploying Node applications, the built-in Remix app server is production-ready.
+
+Make sure to deploy the output of `npm run build`
+
+- `build/server`
+- `build/client`
+
+## Styling
+
+This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever css framework you prefer. See the [Vite docs on css](https://vitejs.dev/guide/features.html#css) for more information.
