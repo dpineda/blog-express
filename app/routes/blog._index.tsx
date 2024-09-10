@@ -1,5 +1,6 @@
 import { json, type LoaderFunctionArgs, type MetaFunction } from "@remix-run/node";
 import sql from "../db.server";
+import { useLoaderData } from "@remix-run/react";
 
 export const loader = async ({ params,}: LoaderFunctionArgs) => {
   console.log("params", params)
@@ -16,36 +17,31 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export default function BlogList() {
+export default function BlogList () {
+  const posts = useLoaderData<typeof loader>();
   return (
-    <div className="font-sans p-4">
-      <h1 className="text-3xl">Welcome to Blog</h1>
-      <ul className="list-disc mt-4 pl-6 space-y-2">
-        <li>
-          <a
-            className="text-blue-700 underline visited:text-purple-900"
-            href="/blog/1"
+    <div className="container mx-auto p-4">
+      <h1 className="text-3xl font-bold text-center mb-6">Latest Blog Posts</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {posts.map((post) => (
+          <div
+            key={post.id}
+            className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
           >
-            Entry 1
-          </a>
-        </li>
-        <li>
-          <a
-            className="text-blue-700 underline visited:text-purple-900"
-            href="/blog/2"
-          >
-            Entry 2
-          </a>
-        </li>
-        <li>
-          <a
-            className="text-blue-700 underline visited:text-purple-900"
-            href="/blog/1"
-          >
-            Entry 3
-          </a>
-        </li>
-      </ul>
+            {post.image && (
+              <img
+                src="https://via.placeholder.com/400"
+                alt={post.title}
+                className="w-full h-48 object-cover"
+              />
+            )}
+            <div className="p-4">
+              <h2 className="text-xl font-semibold mb-2">{post.title}</h2>
+              <p className="text-gray-600">{post.description || "N/A"}</p>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
