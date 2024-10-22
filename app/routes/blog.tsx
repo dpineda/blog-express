@@ -3,7 +3,7 @@ import { Outlet } from "@remix-run/react";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Blog List" },
+    { title: "Blog List Tec" },
     { name: "description", content: "Welcome to Tec Blog!" },
   ];
 };

@@ -12,7 +12,7 @@ export const loader = async ({ params,}: LoaderFunctionArgs) => {
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Blog List" },
+    { title: "Blog List Home" },
     { name: "description", content: "Welcome to Blog!" },
   ];
 };

@@ -38,7 +38,7 @@ pg_ctl -D ./postgres stop
 Optional use postgress in docker
 
 ```Docker
-docker run --name blog-postgres -e POSTGRES_USER=app_user -e POSTGRES_PASSWORD=app_pass -e POSTGRES_DB=blog library/postgres
+docker run --name blog-postgres -e POSTGRES_USER=app_user -e POSTGRES_PASSWORD=app_pass -e POSTGRES_DB=blog -p 5432:5432 library/postgres
 ```
 
 * Keep termux running in backgroud
