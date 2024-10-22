@@ -1,12 +1,12 @@
 import { json, type LoaderFunctionArgs, type MetaFunction } from "@remix-run/node";
 import sql from "../db.server";
-import { useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData } from "@remix-run/react";
 
 export const loader = async ({ params,}: LoaderFunctionArgs) => {
   console.log("params", params)
   //invariant(params.contactId, "Missing contactId param");
   const posts = await sql`select * from posts`;
-  console.log(posts)
+  //console.log(posts)
   return json(posts);
 };
 
@@ -16,6 +16,8 @@ export const meta: MetaFunction = () => {
     { name: "description", content: "Welcome to Blog!" },
   ];
 };
+
+const truncate = (input: string) => input.length > 150 ? `${input.substring(0, 150)}...` : input;
 
 export default function BlogList () {
   const posts = useLoaderData<typeof loader>();
@@ -28,6 +30,7 @@ export default function BlogList () {
             key={post.id}
             className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
           >
+            <Link to={`/blog/${post.id}`}>
             {post.image && (
               <img
                 src="https://via.placeholder.com/400"
@@ -37,8 +40,9 @@ export default function BlogList () {
             )}
             <div className="p-4">
               <h2 className="text-xl font-semibold mb-2">{post.title}</h2>
-              <p className="text-gray-600">{post.description || "N/A"}</p>
+              <p className="text-gray-600">{truncate(post.content) || "N/A"}</p>
             </div>
+            </Link>
           </div>
         ))}
       </div>

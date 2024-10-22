@@ -1,5 +1,6 @@
-import type { MetaFunction } from "@remix-run/node";
-import { useParams } from "@remix-run/react";
+import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
+import { json, useLoaderData } from "@remix-run/react";
+import sql from "~/db.server";
 
 export const meta: MetaFunction = ({params}) => {
   return [
@@ -8,14 +9,25 @@ export const meta: MetaFunction = ({params}) => {
   ];
 };
 
+export async function loader({params}: LoaderFunctionArgs) {
+  const post = await sql`select * from posts p
+  left join authors a on p.author_id = a.id
+  where p.id = ${params.id || 0}`;
+  return json(post);
+}
+
 export default function BlogEntry() {
-  const params = useParams();
+  const data = useLoaderData<typeof loader>();
+  const post = data[0];
   return (
     <article>
-      <h1 className="text-4xl font-bold mb-4">Blog Post Title {params.id}</h1>
-      <p className="text-gray-500 mb-6">Published on August 28, 2024 by <a href="/" className="text-blue-600">Author Name</a></p>
+      <h1 className="text-4xl font-bold mb-4">{post.title }</h1>
+      <div className="flex items-start gap-3">
+        <p className="text-gray-500 mb-6">Published on August 28, 2024 {post.created_at} by <a href="/" className="text-blue-600">{post.name}</a></p>
+        <img className="rounded-full" height="100" width="100" alt="" src={post.profile_image_url} />
+      </div>
       <div className="prose prose-lg max-w-none">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <p>{post.content}</p>
         <h2 className="text-2xl font-bold mb-2">Section Heading</h2>
         <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
         <blockquote className="border-l-4 border-blue-600 pl-4 italic text-gray-600">&quot;This is a quote from someone famous or an important statement related to the topic.&quot;</blockquote>
