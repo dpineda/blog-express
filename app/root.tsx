@@ -1,4 +1,5 @@
 import {
+  Link,
   Links,
   Meta,
   Outlet,
@@ -20,7 +21,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         {/* Navigation Bar */}
         <nav className="bg-white shadow-md">
             <div className="container mx-auto px-4 py-2 flex justify-between items-center">
-                <a href="/" className="text-2xl font-bold text-blue-600">TechBlog</a>
+              <Link to={`/`} className="text-2xl font-bold text-blue-600">Tech Blog</Link>
                 <ul className="flex space-x-6">
                     <li><a href="/" className="text-gray-600 hover:text-blue-600">Home</a></li>
                     <li><a href="/about" className="text-gray-600 hover:text-blue-600">About</a></li>

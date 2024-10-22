@@ -48,9 +48,10 @@ docker run --name blog-postgres -e POSTGRES_USER=app_user -e POSTGRES_PASSWORD=a
 termux-wake-lock
 # Dsiable lock
 termux-wake-unlock
-``
+```
 
 * Using tunnel for testing - Tunnelmole Documentation
+
 ```console
 npm install -g tunnelmole
 $ tmole 3000

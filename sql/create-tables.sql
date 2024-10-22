@@ -40,4 +40,4 @@ FOREIGN KEY (author_id) REFERENCES authors(id)
 ON DELETE SET NULL;
 
 -- Creat default author
-INSERT INTO authors (name, email, bio, profile_image_url) VALUES ('Jonh Doe', 'johndoe@company.com', 'Crypto Investor, Farmer Padawan', 'https://i.imgur.com/2j4IGpP.gif');
+INSERT INTO authors (name, email, bio, profile_image_url) VALUES ('John Doe', 'johndoe@company.com', 'Crypto Investor, Farmer Padawan', 'https://i.imgur.com/2j4IGpP.gif');
