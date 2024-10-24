@@ -1,12 +1,10 @@
-import { json, type LoaderFunctionArgs, type MetaFunction } from "@remix-run/node";
+import { json, type MetaFunction } from "@remix-run/node";
 import sql from "../db.server";
 import { Link, useLoaderData } from "@remix-run/react";
 
-export const loader = async ({ params,}: LoaderFunctionArgs) => {
-  console.log("params", params)
+export const loader = async () => {
   //invariant(params.contactId, "Missing contactId param");
   const posts = await sql`select * from posts`;
-  //console.log(posts)
   return json(posts);
 };
 
@@ -26,9 +24,7 @@ export default function BlogList () {
       <h1 className="text-3xl font-bold text-center mb-6">Latest Blog Posts</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {posts.map((post) => (
-          <div
-            key={post.id}
-          >
+          <div key={post.id}>
             <Link to={`/blog/${post.id}`}>
             <article className="overflow-hidden rounded-lg shadow transition hover:shadow-lg">
               <img
@@ -37,7 +33,11 @@ export default function BlogList () {
                 className="h-56 w-full object-cover"
               />
               <div className="bg-white p-4 sm:p-6">
-                <time dateTime="2022-10-10" className="block text-xs text-gray-500"> {(new Date(post.created_at)).toLocaleDateString()} </time>
+                <time dateTime="2022-10-10" className="block text-xs text-gray-500"> {(new Date(post.created_at)).toLocaleDateString('en-US', { 
+                  year: 'numeric', 
+                  month: 'long', 
+                  day: 'numeric' 
+                })} </time>
                 <h3 className="mt-0.5 text-lg text-gray-900">{post.title}</h3>
                 <p className="mt-2 line-clamp-3 text-sm/relaxed text-gray-500">
                   {truncate(post.content) || "N/A"}

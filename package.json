@@ -1,5 +1,5 @@
 {
-  "name": "sample",
+  "name": "blog",
   "private": true,
   "sideEffects": false,
   "type": "module",
@@ -14,11 +14,11 @@
     "@remix-run/node": "^2.11.2",
     "@remix-run/react": "^2.11.2",
     "@remix-run/serve": "^2.11.2",
+    "blog": "file:",
     "isbot": "^4.1.0",
     "postgres": "^3.4.4",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "sample": "file:"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@remix-run/dev": "^2.11.2",

@@ -11,7 +11,6 @@ export async function action ({request}: ActionFunctionArgs){
     featured_image_url: body.get('featured_image_url')?.toString(),
     author_id: 1
   };
-
   const res = await sql`
   insert into posts ${
     sql(post, 'title', 'content', 'slug', 'featured_image_url', 'author_id')

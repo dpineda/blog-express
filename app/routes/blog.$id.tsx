@@ -19,15 +19,22 @@ export async function loader({params}: LoaderFunctionArgs) {
 export default function BlogEntry() {
   const data = useLoaderData<typeof loader>();
   const post = data[0];
+  
   return (
     <article>
       <h1 className="text-4xl font-bold mb-4">{post.title }</h1>
-      <div className="flex items-start gap-3">
-        <p className="text-gray-500 mb-6">Published on {(new Date(post.created_at)).toLocaleDateString()} by <a href="/" className="text-blue-600">{post.name}</a></p>
-        <img className="rounded-full" height="80" width="80" alt="" src={post.profile_image_url} />
+      <div className="flex items-center gap-3">
+        <img className="rounded-full" height="40" width="40" alt="" src={post.profile_image_url} />
+        <p className="text-gray-500">Published on {(new Date(post.created_at)).toLocaleDateString(
+          'en-US', { 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+          })} by <a href="/" className="text-blue-600">{post.name}</a></p>
       </div>
-      <div className="prose prose-lg max-w-none">
-        <p>{post.content}</p>
+      <hr className="my-8" />
+      <div className="prose prose-lg max-w-none whitespace-pre-line">
+        {post.content}
       </div>
     </article>
   );

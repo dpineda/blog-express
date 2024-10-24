@@ -17,7 +17,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className="bg-gray-100 text-gray-800">
+      <body className="bg-gray-100 text-gray-800 min-h-screen flex flex-col justify-between">
         {/* Navigation Bar */}
         <nav className="bg-white shadow-md">
             <div className="container mx-auto px-4 py-2 flex justify-between items-center">
@@ -31,7 +31,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             </div>
         </nav>
         
-        <main className="container mx-auto px-4 py-10">
+        <main className="container flex-grow mx-auto px-4 py-10">
           <div className="bg-white p-6 rounded-lg shadow-md">
             {children}
           </div>
@@ -39,7 +39,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <ScrollRestoration />
         <Scripts />
         {/* Footer */}
-        <footer className="bg-gray-800 text-white py-6 mt-10">
+        <footer className="bg-gray-800 text-white py-6">
             <div className="container mx-auto px-4 text-center">
                 <p>&copy; 2024 TechBlog. All Rights Reserved.</p>
                 <p>Follow us on:
